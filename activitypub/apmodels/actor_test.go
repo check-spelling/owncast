@@ -64,7 +64,7 @@ func TestMain(m *testing.M) {
 
 func TestMakeActorFromExternalAPEntity(t *testing.T) {
 	service := makeFakeService()
-	actor, err := MakeActorFromExernalAPEntity(service)
+	actor, err := MakeActorFromExternalAPEntity(service)
 	if err != nil {
 		t.Error(err)
 	}
@@ -112,15 +112,15 @@ func TestGetFullUsernameFromPerson(t *testing.T) {
 func TestAddMetadataLinkToProfile(t *testing.T) {
 	person := makeFakeService()
 	addMetadataLinkToProfile(person, "my site", "https://my.cool.site.biz")
-	attchment := person.GetActivityStreamsAttachment().At(0)
+	attachment := person.GetActivityStreamsAttachment().At(0)
 
-	nameValue := attchment.GetActivityStreamsObject().GetActivityStreamsName().At(0).GetXMLSchemaString()
+	nameValue := attachment.GetActivityStreamsObject().GetActivityStreamsName().At(0).GetXMLSchemaString()
 	expected := "my site"
 	if nameValue != expected {
 		t.Errorf("attachment name = %v, want %v", nameValue, expected)
 	}
 
-	propertyValue := attchment.GetActivityStreamsObject().GetUnknownProperties()["value"]
+	propertyValue := attachment.GetActivityStreamsObject().GetUnknownProperties()["value"]
 	expected = `<a href="https://my.cool.site.biz" rel="me nofollow noopener noreferrer" target="_blank">https://my.cool.site.biz</a>`
 	if propertyValue != expected {
 		t.Errorf("attachment value = %v, want %v", propertyValue, expected)

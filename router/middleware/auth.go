@@ -11,21 +11,21 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// ExternalAccessTokenHandlerFunc is a function that is called after validing access.
+// ExternalAccessTokenHandlerFunc is a function that is called after validating access.
 type ExternalAccessTokenHandlerFunc func(user.ExternalAPIUser, http.ResponseWriter, *http.Request)
 
-// UserAccessTokenHandlerFunc is a function that is called after validing user access.
+// UserAccessTokenHandlerFunc is a function that is called after validating user access.
 type UserAccessTokenHandlerFunc func(user.User, http.ResponseWriter, *http.Request)
 
 // RequireAdminAuth wraps a handler requiring HTTP basic auth for it using the given
-// the stream key as the password and and a hardcoded "admin" for username.
+// the stream key as the password and a hardcoded "admin" for username.
 func RequireAdminAuth(handler http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		username := "admin"
 		password := data.GetStreamKey()
 		realm := "Owncast Authenticated Request"
 
-		// The following line is kind of a work around.
+		// The following line is kind of a workaround.
 		// If you want HTTP Basic Auth + Cors it requires _explicit_ origins to be provided in the
 		// Access-Control-Allow-Origin header.  So we just pull out the origin header and specify it.
 		// If we want to lock down admin APIs to not be CORS accessible for anywhere, this is where we would do that.
