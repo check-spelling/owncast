@@ -24,5 +24,6 @@
         "videojs",
         "Warnf",
         "Warnln"
-    ]
+    ],
+    "sarif-viewer.connectToGithubCodeScanning": "on"
 }
